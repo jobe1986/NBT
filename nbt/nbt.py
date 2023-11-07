@@ -360,10 +360,10 @@ class TAG_String(TAG, Sequence):
         read = buffer.read(length.value)
         if len(read) != length.value:
             raise StructError()
-        self.value = read.decode("utf-8")
+        self.value = read.decode("utf-8", errors='replace')
 
     def _render_buffer(self, buffer):
-        save_val = self.value.encode("utf-8")
+        save_val = self.value.encode("utf-8", errors='replace')
         length = TAG_Short(len(save_val))
         length._render_buffer(buffer)
         buffer.write(save_val)
